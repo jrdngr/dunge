@@ -3,16 +3,17 @@ use bevy::{
 };
 
 use crate::{
-    components::{Velocity, Acceleration},
+    components::RigidBody,
 };
 
 pub fn physics(
     time: Res<Time>,
-    mut query: Query<(&mut Velocity, &Acceleration, &mut Translation)>,
+    mut query: Query<(&mut RigidBody, &mut Translation)>,
 ) {
-    for (mut velocity, acceleration, mut translation) in &mut query.iter() {
-        velocity.0 += time.delta_seconds * acceleration.0;
-        *translation.0.x_mut() += time.delta_seconds * velocity.0.x();
-        *translation.0.y_mut() += time.delta_seconds * velocity.0.y();
+    for (mut rigidbody, mut translation) in &mut query.iter() {
+        rigidbody.update(time.delta_seconds);
+        
+        *translation.0.x_mut() += time.delta_seconds * rigidbody.velocity.x();
+        *translation.0.y_mut() += time.delta_seconds * rigidbody.velocity.y();
     }
 }

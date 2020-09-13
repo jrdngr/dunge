@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 
-use crate::components::{Acceleration, Player, Velocity};
+use crate::components::{RigidBody, Player};
 
 use crate::{
     WINDOW_SIZE,
@@ -23,8 +23,12 @@ pub fn setup(
             ..Default::default()
         })
         .with(Player::default())
-        .with(Velocity::default())
-        .with(Acceleration::default());
+        .with(RigidBody {
+            mass: 1.0,
+            drag_coefficient: 0.7,
+            max_velocity: 500.0,
+            ..Default::default()
+        });
 
     // Add walls
     let wall_material = materials.add(Color::rgb(0.9, 0.9, 0.9).into());

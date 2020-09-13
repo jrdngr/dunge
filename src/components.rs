@@ -1,5 +1,5 @@
-pub mod physics;
+pub mod rigidbody;
 pub mod player;
 
-pub use physics::{Velocity, Acceleration};
+pub use rigidbody::RigidBody;
 pub use player::Player;
