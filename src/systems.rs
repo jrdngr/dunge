@@ -1,7 +1,7 @@
 pub mod input;
+pub mod player;
 pub mod setup;
-pub mod spawn;
 
 pub use input::update_input_state;
+pub use player::player;
 pub use setup::setup;
-pub use spawn::spawn;

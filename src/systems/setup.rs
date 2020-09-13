@@ -1,5 +1,7 @@
 use bevy::prelude::*;
 
+use crate::components::Position;
+
 use crate::{
     WINDOW_SIZE,
 };
@@ -10,8 +12,18 @@ pub fn setup(
 ) {
     commands
         .spawn(Camera2dComponents::default())
-        .spawn(UiCameraComponents::default());
-
+        .spawn(UiCameraComponents::default())
+        // Add player
+        .spawn(SpriteComponents {
+            material: materials.add(Color::rgb(0.0, 0.0, 1.0).into()),
+            translation: Translation(Vec3::new(0.0, 0.0, 0.0)),
+            sprite: Sprite {
+                size: Vec2::new(10.0, 10.0),
+            },
+            ..Default::default()
+        })
+        .with(Position::default());
+        
     // Add walls
     let wall_material = materials.add(Color::rgb(0.9, 0.9, 0.9).into());
     let wall_thickness = 5.0;

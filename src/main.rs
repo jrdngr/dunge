@@ -1,3 +1,4 @@
+pub mod components;
 pub mod plugins;
 pub mod resources;
 pub mod systems;
@@ -8,7 +9,6 @@ use bevy::{
 };
 
 const WINDOW_SIZE: (u32, u32) = (1920, 1080);
-const GRID_SIZE: (usize, usize) = (100, 100);
 
 fn  main() {
     App::build()
@@ -33,6 +33,6 @@ impl Plugin for GamePlugin {
             .add_resource(resources::InputState::default())
             .add_resource(ClearColor(Color::rgb(0.0, 0.0, 0.0)))
             .add_system(systems::update_input_state.system())
-            .add_system(systems::spawn.system());
+            .add_system(systems::player.system());
     }
 }
