@@ -35,6 +35,7 @@ impl Plugin for GamePlugin {
             .add_resource(ClearColor(Color::rgb(0.0, 0.0, 0.0)))
             .add_system(systems::update_input_state.system())
             .add_system(systems::physics.system())
-            .add_system(systems::player.system());
+            .add_system(systems::player.system())
+            .add_system(systems::debug.system());
     }
 }

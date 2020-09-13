@@ -9,6 +9,7 @@ use crate::{
 pub fn setup(
     mut commands: Commands,
     mut materials: ResMut<Assets<ColorMaterial>>,
+    asset_server: Res<AssetServer>,
 ) {
     commands
         .spawn(Camera2dComponents::default())
@@ -25,10 +26,33 @@ pub fn setup(
         .with(Player::default())
         .with(RigidBody {
             mass: 1.0,
-            drag_coefficient: 0.7,
+            drag_coefficient: 5.0,
             max_velocity: 500.0,
+            min_velocity: 1.0,
             ..Default::default()
-        });
+        })
+        // Add debug text
+        .spawn(TextComponents {
+            text: Text {
+                font: asset_server.load("assets/fonts/FiraSans-Bold.ttf").unwrap(),
+                value: "Physics".to_string(),
+                style: TextStyle {
+                    color: Color::rgb(0.2, 0.2, 0.8),
+                    font_size: 40.0,
+                },
+            },
+            style: Style {
+                position_type: PositionType::Absolute,
+                position: Rect {
+                    top: Val::Px(5.0),
+                    left: Val::Px(5.0),
+                    ..Default::default()
+                },
+                ..Default::default()
+            },
+            ..Default::default()
+        })
+        ;
 
     // Add walls
     let wall_material = materials.add(Color::rgb(0.9, 0.9, 0.9).into());

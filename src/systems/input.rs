@@ -1,6 +1,7 @@
 use bevy::{
     prelude::*,
     window::CursorMoved,
+    render::camera::OrthographicProjection,
 };
 
 use crate::{
@@ -13,8 +14,9 @@ pub fn update_input_state(
     keyboard_input: Res<Input<KeyCode>>,
     mouse_input: Res<Input<MouseButton>>,
     cursor_moved_events: Res<Events<CursorMoved>>,
+    camera_query: Query<(&OrthographicProjection, &Transform)>,
 ) {
-    input_state.update_mouse_position(&cursor_moved_events, &window);
+    input_state.update_mouse_position(&cursor_moved_events, &window, camera_query);
     
     if keyboard_input.pressed(KeyCode::Left) || keyboard_input.pressed(KeyCode::A) {
         input_state.x_axis = -1.0;
@@ -33,5 +35,5 @@ pub fn update_input_state(
     }
 
     input_state.left_mouse = mouse_input.pressed(MouseButton::Left);
-    input_state.right_mouse = mouse_input.pressed(MouseButton::Right);
+    input_state.dash = mouse_input.just_pressed(MouseButton::Right);
 }
