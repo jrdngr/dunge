@@ -1,4 +1,3 @@
-pub mod creatures;
 pub mod plugins;
 pub mod resources;
 pub mod systems;
@@ -14,7 +13,7 @@ const GRID_SIZE: (usize, usize) = (100, 100);
 fn  main() {
     App::build()
         .add_resource(WindowDescriptor {
-            title: "My Little Habitat".to_string(),
+            title: "Dunge".to_string(),
             width: WINDOW_SIZE.0,
             height: WINDOW_SIZE.1,
             vsync: true,
@@ -22,7 +21,6 @@ fn  main() {
         })
         .add_default_plugins()
         .add_plugin(plugins::window_resize::WindowResizePlugin)
-        .add_resource(resources::Grid::new(GRID_SIZE.0, GRID_SIZE.1))
         .add_plugin(GamePlugin)
         .run();
 }

@@ -4,36 +4,24 @@ use bevy::{
     window::CursorMoved,
 };
 
-use crate::{
-    creatures::{Position},
-};
 
 #[derive(Default)]
 pub struct InputState {
-    pub position: Position,
-    pub left: bool,
-    pub right: bool,
-    mouse_button_event_reader: EventReader<MouseButtonInput>,
+    pub x_axis: f32,
+    pub y_axis: f32,
+    pub left_mouse: bool,
+    pub right_mouse: bool,
+    pub mouse_position: (f32, f32),
     cursor_moved_event_reader: EventReader<CursorMoved>,
 }
 
 impl InputState {
-    pub fn update(&mut self,
-        mouse_button_input_events: &Res<Events<MouseButtonInput>>, 
+    pub fn update_mouse_position(&mut self,
         cursor_moved_events: &Res<Events<CursorMoved>>,
         window: &Res<WindowDescriptor>,
     ) {
-        for event in self.mouse_button_event_reader.iter(&mouse_button_input_events) {
-            use bevy::input::keyboard::ElementState;
-    
-            match event.button {
-                MouseButton::Left => self.left = event.state == ElementState::Pressed,
-                MouseButton::Right => self.right = event.state == ElementState::Pressed,
-                _ => (),
-            }
-        }
-    
-        for event in self.cursor_moved_event_reader.iter(&cursor_moved_events) {
+        let event = self.cursor_moved_event_reader.iter(&cursor_moved_events).next_back();
+        if let Some(event) = event {
             let width = window.width as f32;
             let height = window.height as f32;
 
@@ -43,7 +31,7 @@ impl InputState {
             let x = (2.0 * x) - 1.0;
             let y = (2.0 * y) - 1.0;
 
-            self.position = Position { x, y };
+            self.mouse_position = (x, y);
         }
     }
 }
