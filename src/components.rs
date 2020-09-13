@@ -1,3 +1,5 @@
-pub mod position;
+pub mod physics;
+pub mod player;
 
-pub use position::Position;
+pub use physics::{Velocity, Acceleration};
+pub use player::Player;

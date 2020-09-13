@@ -3,15 +3,13 @@ use bevy::{
     window::CursorMoved,
 };
 
-use crate::components::Position;
-
 #[derive(Default)]
 pub struct InputState {
     pub x_axis: f32,
     pub y_axis: f32,
     pub left_mouse: bool,
     pub right_mouse: bool,
-    pub mouse_position: Position,
+    pub mouse_position: Vec2,
     cursor_moved_event_reader: EventReader<CursorMoved>,
 }
 
@@ -31,7 +29,7 @@ impl InputState {
             let x = (2.0 * x) - 1.0;
             let y = (2.0 * y) - 1.0;
 
-            self.mouse_position = Position { x, y };
+            self.mouse_position = Vec2::new(x, y);
         }
     }
 }

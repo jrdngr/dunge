@@ -8,7 +8,8 @@ use bevy::{
     render::pass::ClearColor,
 };
 
-const WINDOW_SIZE: (u32, u32) = (1920, 1080);
+// const WINDOW_SIZE: (u32, u32) = (1920, 1080);
+const WINDOW_SIZE: (u32, u32) = (2430, 1620);
 
 fn  main() {
     App::build()
@@ -33,6 +34,7 @@ impl Plugin for GamePlugin {
             .add_resource(resources::InputState::default())
             .add_resource(ClearColor(Color::rgb(0.0, 0.0, 0.0)))
             .add_system(systems::update_input_state.system())
+            .add_system(systems::physics.system())
             .add_system(systems::player.system());
     }
 }

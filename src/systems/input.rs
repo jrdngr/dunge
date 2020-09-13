@@ -18,18 +18,18 @@ pub fn update_input_state(
     
     if keyboard_input.pressed(KeyCode::Left) || keyboard_input.pressed(KeyCode::A) {
         input_state.x_axis = -1.0;
-    }
-
-    if keyboard_input.pressed(KeyCode::Right) || keyboard_input.pressed(KeyCode::D) {
+    } else if keyboard_input.pressed(KeyCode::Right) || keyboard_input.pressed(KeyCode::D) {
         input_state.x_axis = 1.0;
+    } else {
+        input_state.x_axis = 0.0;
     }
 
     if keyboard_input.pressed(KeyCode::Down) || keyboard_input.pressed(KeyCode::S) {
-        input_state.x_axis = -1.0;
-    }
-
-    if keyboard_input.pressed(KeyCode::Up) || keyboard_input.pressed(KeyCode::W) {
+        input_state.y_axis = -1.0;
+    } else if keyboard_input.pressed(KeyCode::Up) || keyboard_input.pressed(KeyCode::W) {
         input_state.y_axis = 1.0;
+    } else {
+        input_state.y_axis = 0.0;
     }
 
     input_state.left_mouse = mouse_input.pressed(MouseButton::Left);
