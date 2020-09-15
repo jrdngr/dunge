@@ -25,15 +25,15 @@ impl InputState {
             let width = window.width as f32;
             let height = window.height as f32;
 
-            dbg!(event.position);
-
             let x = event.position.x() / width;
             let y = event.position.y() / height;
 
             let x = (2.0 * x) - 1.0;
             let y = (2.0 * y) - 1.0;
 
-            for (projection, transform) in &mut camera_query.iter() {
+            let camera_iter = &mut camera_query.iter();
+
+            if let Some((projection, transform)) = camera_iter.into_iter().next() {
                 let transform = projection.get_projection_matrix() * transform.value;
                 let position = Vec4::new(x, y, 0.0, 1.0);
                 let world_position = transform.inverse() * position;

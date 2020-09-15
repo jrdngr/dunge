@@ -36,6 +36,7 @@ impl Plugin for GamePlugin {
             .add_system(systems::update_input_state.system())
             .add_system(systems::physics.system())
             .add_system(systems::player.system())
-            .add_system(systems::debug.system());
+            // .add_system(systems::debug.system())
+        ;
     }
 }
