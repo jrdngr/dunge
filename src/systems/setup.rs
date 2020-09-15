@@ -1,6 +1,12 @@
 use bevy::prelude::*;
 
-use crate::components::{RigidBody, Player};
+use crate::components::{
+    RigidBody, 
+    markers::{
+        Player,
+        PrimaryCamera,
+    },
+};
 
 use crate::{
     WINDOW_SIZE,
@@ -13,6 +19,7 @@ pub fn setup(
 ) {
     commands
         .spawn(Camera2dComponents::default())
+        .with(PrimaryCamera)
         .spawn(UiCameraComponents::default())
         // Add player
         .spawn(SpriteComponents {
@@ -23,7 +30,7 @@ pub fn setup(
             },
             ..Default::default()
         })
-        .with(Player::default())
+        .with(Player)
         .with(RigidBody {
             mass: 1.0,
             drag_coefficient: 5.0,

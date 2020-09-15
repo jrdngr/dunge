@@ -2,7 +2,7 @@ use bevy::prelude::*;
 
 use crate::{
     resources::InputState,
-    components::{Player, RigidBody},
+    components::{markers::Player, RigidBody},
 };
 
 pub fn debug(

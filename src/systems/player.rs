@@ -4,7 +4,7 @@ use bevy::{
 
 use crate::{
     resources::InputState,
-    components::{Player, RigidBody},
+    components::{markers::Player, RigidBody},
 };
 
 const PLAYER_MOVE_FORCE: f32 = 5_000.0;

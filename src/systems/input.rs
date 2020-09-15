@@ -6,6 +6,7 @@ use bevy::{
 
 use crate::{
     resources::InputState,
+    components::markers::PrimaryCamera,
 };
 
 pub fn update_input_state(
@@ -14,7 +15,7 @@ pub fn update_input_state(
     keyboard_input: Res<Input<KeyCode>>,
     mouse_input: Res<Input<MouseButton>>,
     cursor_moved_events: Res<Events<CursorMoved>>,
-    camera_query: Query<(&OrthographicProjection, &Transform)>,
+    camera_query: Query<(&OrthographicProjection, &Transform, &PrimaryCamera)>,
 ) {
     input_state.update_mouse_position(&cursor_moved_events, &window, camera_query);
     

@@ -4,6 +4,8 @@ use bevy::{
     render::camera::{OrthographicProjection, CameraProjection},
 };
 
+use crate::components::markers::PrimaryCamera;
+
 #[derive(Default)]
 pub struct InputState {
     pub x_axis: f32,
@@ -18,7 +20,7 @@ impl InputState {
     pub fn update_mouse_position(&mut self,
         cursor_moved_events: &Res<Events<CursorMoved>>,
         window: &Res<WindowDescriptor>,
-        mut camera_query: Query<(&OrthographicProjection, &Transform)>,
+        mut camera_query: Query<(&OrthographicProjection, &Transform, &PrimaryCamera)>,
     ) {
         let event = self.cursor_moved_event_reader.iter(&cursor_moved_events).next_back();
         if let Some(event) = event {
@@ -33,7 +35,7 @@ impl InputState {
 
             let camera_iter = &mut camera_query.iter();
 
-            if let Some((projection, transform)) = camera_iter.into_iter().next() {
+            if let Some((projection, transform, _)) = camera_iter.into_iter().next() {
                 let transform = projection.get_projection_matrix() * transform.value;
                 let position = Vec4::new(x, y, 0.0, 1.0);
                 let world_position = transform.inverse() * position;
