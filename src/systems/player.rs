@@ -8,7 +8,7 @@ use crate::{
 };
 
 const PLAYER_MOVE_FORCE: f32 = 5_000.0;
-const DASH_FORCE: f32 = 50_000.0;
+const DASH_FORCE: f32 = 100_000.0;
 
 pub fn player(
     mut input_state: ResMut<InputState>,
