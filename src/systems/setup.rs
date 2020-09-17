@@ -8,11 +8,11 @@ use crate::components::{
 pub fn setup(
     mut commands: Commands,
     mut materials: ResMut<Assets<ColorMaterial>>,
-    asset_server: Res<AssetServer>,
+    _asset_server: Res<AssetServer>,
 ) {
     configure_cameras(&mut commands);
     configure_player(&mut commands, &mut materials);
-    // configure_debug_test(&mut commands, &asset_server);
+    // _configure_debug_test(&mut commands, &_asset_server);
 }
 
 fn configure_cameras(commands: &mut Commands) {
@@ -42,7 +42,7 @@ fn configure_player(commands: &mut Commands, materials: &mut ResMut<Assets<Color
         });
 }
 
-fn configure_debug_test(commands: &mut Commands, asset_server: &Res<AssetServer>) {
+fn _configure_debug_test(commands: &mut Commands, asset_server: &Res<AssetServer>) {
     commands.spawn(TextComponents {
         text: Text {
             font: asset_server.load("assets/fonts/FiraSans-Bold.ttf").unwrap(),
