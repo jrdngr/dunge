@@ -1,14 +1,14 @@
 use bevy::prelude::*;
 
 use crate::{
-    resources::InputState,
     components::{markers::Player, RigidBody},
+    resources::InputState,
 };
 
 pub fn debug(
     input_state: Res<InputState>,
     mut text_query: Query<&mut Text>,
-    mut query: Query<(&Player, &RigidBody,  &Translation)>,
+    mut query: Query<(&Player, &RigidBody, &Translation)>,
 ) {
     for mut text in &mut text_query.iter() {
         for (_, rigidbody, player_position) in &mut query.iter() {
@@ -23,6 +23,6 @@ pub fn debug(
                 rigidbody.acceleration.x(),
                 rigidbody.acceleration.y(),
             );
-        }    
+        }
     }
 }

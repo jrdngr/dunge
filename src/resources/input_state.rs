@@ -1,7 +1,7 @@
 use bevy::{
     prelude::*,
+    render::camera::{CameraProjection, OrthographicProjection},
     window::CursorMoved,
-    render::camera::{OrthographicProjection, CameraProjection},
 };
 
 use crate::components::markers::PrimaryCamera;
@@ -17,12 +17,16 @@ pub struct InputState {
 }
 
 impl InputState {
-    pub fn update_mouse_position(&mut self,
+    pub fn update_mouse_position(
+        &mut self,
         cursor_moved_events: &Res<Events<CursorMoved>>,
         window: &Res<WindowDescriptor>,
         mut camera_query: Query<(&OrthographicProjection, &Transform, &PrimaryCamera)>,
     ) {
-        let event = self.cursor_moved_event_reader.iter(&cursor_moved_events).next_back();
+        let event = self
+            .cursor_moved_event_reader
+            .iter(&cursor_moved_events)
+            .next_back();
         if let Some(event) = event {
             let width = window.width as f32;
             let height = window.height as f32;

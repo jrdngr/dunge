@@ -1,13 +1,8 @@
 use bevy::prelude::*;
 
-use crate::{
-    components::{
-        RigidBody, 
-        markers::{
-            Player,
-            PrimaryCamera,
-        },
-    },
+use crate::components::{
+    markers::{Player, PrimaryCamera},
+    RigidBody,
 };
 
 pub fn setup(
@@ -48,25 +43,24 @@ fn configure_player(commands: &mut Commands, materials: &mut ResMut<Assets<Color
 }
 
 fn configure_debug_test(commands: &mut Commands, asset_server: &Res<AssetServer>) {
-    commands
-        .spawn(TextComponents {
-            text: Text {
-                font: asset_server.load("assets/fonts/FiraSans-Bold.ttf").unwrap(),
-                value: "Physics".to_string(),
-                style: TextStyle {
-                    color: Color::rgb(0.2, 0.2, 0.8),
-                    font_size: 40.0,
-                },
+    commands.spawn(TextComponents {
+        text: Text {
+            font: asset_server.load("assets/fonts/FiraSans-Bold.ttf").unwrap(),
+            value: "Physics".to_string(),
+            style: TextStyle {
+                color: Color::rgb(0.2, 0.2, 0.8),
+                font_size: 40.0,
             },
-            style: Style {
-                position_type: PositionType::Absolute,
-                position: Rect {
-                    top: Val::Px(5.0),
-                    left: Val::Px(5.0),
-                    ..Default::default()
-                },
+        },
+        style: Style {
+            position_type: PositionType::Absolute,
+            position: Rect {
+                top: Val::Px(5.0),
+                left: Val::Px(5.0),
                 ..Default::default()
             },
             ..Default::default()
-        });
+        },
+        ..Default::default()
+    });
 }

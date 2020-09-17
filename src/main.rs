@@ -3,15 +3,12 @@ pub mod plugins;
 pub mod resources;
 pub mod systems;
 
-use bevy::{
-    prelude::*,
-    render::pass::ClearColor,
-};
+use bevy::{prelude::*, render::pass::ClearColor};
 
 // const WINDOW_SIZE: (u32, u32) = (1920, 1080);
 const WINDOW_SIZE: (u32, u32) = (2430, 1620);
 
-fn  main() {
+fn main() {
     App::build()
         .add_resource(WindowDescriptor {
             title: "Dunge".to_string(),

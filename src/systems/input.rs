@@ -1,13 +1,6 @@
-use bevy::{
-    prelude::*,
-    window::CursorMoved,
-    render::camera::OrthographicProjection,
-};
+use bevy::{prelude::*, render::camera::OrthographicProjection, window::CursorMoved};
 
-use crate::{
-    resources::InputState,
-    components::markers::PrimaryCamera,
-};
+use crate::{components::markers::PrimaryCamera, resources::InputState};
 
 pub fn update_input_state(
     mut input_state: ResMut<InputState>,
@@ -18,7 +11,7 @@ pub fn update_input_state(
     camera_query: Query<(&OrthographicProjection, &Transform, &PrimaryCamera)>,
 ) {
     input_state.update_mouse_position(&cursor_moved_events, &window, camera_query);
-    
+
     if keyboard_input.pressed(KeyCode::Left) || keyboard_input.pressed(KeyCode::A) {
         input_state.x_axis = -1.0;
     } else if keyboard_input.pressed(KeyCode::Right) || keyboard_input.pressed(KeyCode::D) {

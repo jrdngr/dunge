@@ -1,10 +1,8 @@
-use bevy::{
-    prelude::*,
-};
+use bevy::prelude::*;
 
 use crate::{
-    resources::InputState,
     components::{markers::Player, RigidBody},
+    resources::InputState,
 };
 
 const PLAYER_MOVE_FORCE: f32 = 5_000.0;
@@ -30,7 +28,7 @@ pub fn player(
             let y_force = input_state.y_axis * PLAYER_MOVE_FORCE;
             let force = Vec2::new(x_force, y_force);
 
-            rigidbody.apply_force(force);    
+            rigidbody.apply_force(force);
         }
     }
 }
