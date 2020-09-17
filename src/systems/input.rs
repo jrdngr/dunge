@@ -2,7 +2,7 @@ use bevy::{prelude::*, render::camera::OrthographicProjection, window::CursorMov
 
 use crate::{components::markers::PrimaryCamera, resources::InputState};
 
-pub fn update_input_state(
+pub fn input(
     mut input_state: ResMut<InputState>,
     window: Res<WindowDescriptor>,
     keyboard_input: Res<Input<KeyCode>>,
