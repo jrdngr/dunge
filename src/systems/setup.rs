@@ -1,15 +1,13 @@
 use bevy::prelude::*;
 
-use crate::components::{
-    RigidBody, 
-    markers::{
-        Player,
-        PrimaryCamera,
-    },
-};
-
 use crate::{
-    WINDOW_SIZE,
+    components::{
+        RigidBody, 
+        markers::{
+            Player,
+            PrimaryCamera,
+        },
+    },
 };
 
 pub fn setup(
@@ -17,11 +15,20 @@ pub fn setup(
     mut materials: ResMut<Assets<ColorMaterial>>,
     asset_server: Res<AssetServer>,
 ) {
+    configure_cameras(&mut commands);
+    configure_player(&mut commands, &mut materials);
+    // configure_debug_test(&mut commands, &asset_server);
+}
+
+fn configure_cameras(commands: &mut Commands) {
     commands
         .spawn(Camera2dComponents::default())
         .with(PrimaryCamera)
-        .spawn(UiCameraComponents::default())
-        // Add player
+        .spawn(UiCameraComponents::default());
+}
+
+fn configure_player(commands: &mut Commands, materials: &mut ResMut<Assets<ColorMaterial>>) {
+    commands
         .spawn(SpriteComponents {
             material: materials.add(Color::rgb(0.0, 0.2, 1.0).into()),
             translation: Translation(Vec3::new(0.0, 0.0, 0.0)),
@@ -37,8 +44,11 @@ pub fn setup(
             max_velocity: 500.0,
             min_velocity: 1.0,
             ..Default::default()
-        })
-        // Add debug text
+        });
+}
+
+fn configure_debug_test(commands: &mut Commands, asset_server: &Res<AssetServer>) {
+    commands
         .spawn(TextComponents {
             text: Text {
                 font: asset_server.load("assets/fonts/FiraSans-Bold.ttf").unwrap(),
@@ -56,50 +66,6 @@ pub fn setup(
                     ..Default::default()
                 },
                 ..Default::default()
-            },
-            ..Default::default()
-        })
-        ;
-
-    // Add walls
-    let wall_material = materials.add(Color::rgb(0.9, 0.9, 0.9).into());
-    let wall_thickness = 5.0;
-    let bounds = Vec2::new(WINDOW_SIZE.0 as f32, WINDOW_SIZE.1 as f32);
-
-    commands
-        // left
-        .spawn(SpriteComponents {
-            material: wall_material,
-            translation: Translation(Vec3::new(-bounds.x() / 2.0, 0.0, 0.0)),
-            sprite: Sprite {
-                size: Vec2::new(wall_thickness, bounds.y() + wall_thickness),
-            },
-            ..Default::default()
-        })
-        // right
-        .spawn(SpriteComponents {
-            material: wall_material,
-            translation: Translation(Vec3::new(bounds.x() / 2.0, 0.0, 0.0)),
-            sprite: Sprite {
-                size: Vec2::new(wall_thickness, bounds.y() + wall_thickness),
-            },
-            ..Default::default()
-        })
-        // bottom
-        .spawn(SpriteComponents {
-            material: wall_material,
-            translation: Translation(Vec3::new(0.0, -bounds.y() / 2.0, 0.0)),
-            sprite: Sprite {
-                size: Vec2::new(bounds.x() + wall_thickness, wall_thickness),
-            },
-            ..Default::default()
-        })
-        // top
-        .spawn(SpriteComponents {
-            material: wall_material,
-            translation: Translation(Vec3::new(0.0, bounds.y() / 2.0, 0.0)),
-            sprite: Sprite {
-                size: Vec2::new(bounds.x() + wall_thickness, wall_thickness),
             },
             ..Default::default()
         });
